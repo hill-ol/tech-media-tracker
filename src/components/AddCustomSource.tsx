@@ -12,7 +12,7 @@ function AddCustomSource({ onSuccess, onCancel }: AddCustomSourceProps) {
     const addCustomSource = useMediaStore((state) => state.addCustomSource);
 
     const [name, setName] = useState('');
-    const [type, setType] = useState<MediaType>('podcast');
+    const [type, setType] = useState<MediaType>('video');
     const [frequency, setFrequency] = useState('');
     const [duration, setDuration] = useState('');
     const [url, setUrl] = useState('');
@@ -34,7 +34,7 @@ function AddCustomSource({ onSuccess, onCancel }: AddCustomSourceProps) {
 
         // Reset form
         setName('');
-        setType('podcast');
+        setType('video');
         setFrequency('');
         setDuration('');
         setUrl('');
@@ -59,7 +59,7 @@ function AddCustomSource({ onSuccess, onCancel }: AddCustomSourceProps) {
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            placeholder="e.g., 'My Favorite Tech Blog'"
+                            placeholder="e.g., 'Fireship', 'ThePrimeagen'"
                             required
                         />
                     </div>
@@ -72,6 +72,7 @@ function AddCustomSource({ onSuccess, onCancel }: AddCustomSourceProps) {
                             onChange={(e) => setType(e.target.value as MediaType)}
                             required
                         >
+                            <option value="video">Video (YouTube, etc.)</option>
                             <option value="podcast">Podcast</option>
                             <option value="newsletter">Newsletter</option>
                             <option value="article">Article/Blog</option>
@@ -85,7 +86,7 @@ function AddCustomSource({ onSuccess, onCancel }: AddCustomSourceProps) {
                             type="text"
                             value={frequency}
                             onChange={(e) => setFrequency(e.target.value)}
-                            placeholder="e.g., 'Weekly', 'Daily', 'Monthly'"
+                            placeholder="e.g., 'Weekly', 'Daily', 'As needed'"
                             required
                         />
                     </div>
@@ -97,7 +98,7 @@ function AddCustomSource({ onSuccess, onCancel }: AddCustomSourceProps) {
                             type="text"
                             value={duration}
                             onChange={(e) => setDuration(e.target.value)}
-                            placeholder="e.g., '30 min', '5 min read'"
+                            placeholder="e.g., '15 min', '5 min read'"
                         />
                     </div>
 
@@ -108,7 +109,7 @@ function AddCustomSource({ onSuccess, onCancel }: AddCustomSourceProps) {
                             type="url"
                             value={url}
                             onChange={(e) => setUrl(e.target.value)}
-                            placeholder="https://example.com"
+                            placeholder="https://youtube.com/@fireship"
                         />
                     </div>
 

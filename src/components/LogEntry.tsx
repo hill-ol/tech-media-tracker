@@ -9,7 +9,18 @@ interface LogEntryProps {
 
 function LogEntry({ entry }: LogEntryProps) {
     const deleteEntry = useMediaStore((state) => state.deleteEntry);
-    const icon = entry.type === 'podcast' ? '🎧' : '📰';
+
+    const getIcon = (type: string) => {
+        switch(type) {
+            case 'podcast': return '🎧';
+            case 'newsletter': return '📰';
+            case 'video': return '🎥';
+            case 'article': return '📝';
+            default: return '📚';
+        }
+    };
+
+    const icon = getIcon(entry.type);
 
     return (
         <div className="log-entry">

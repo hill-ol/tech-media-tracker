@@ -17,6 +17,16 @@ function Dashboard() {
     const weekProgress = getWeekProgress();
     const recommendations = getDailyRecommendations(entries, weekProgress);
 
+    const getIcon = (type: string) => {
+        switch(type) {
+            case 'podcast': return '🎧';
+            case 'newsletter': return '📰';
+            case 'video': return '🎥';
+            case 'article': return '📝';
+            default: return '📚';
+        }
+    };
+
     return (
         <div className="dashboard">
             <WeeklyProgress current={weekProgress} target={3} />
@@ -38,7 +48,7 @@ function Dashboard() {
                     className={view === 'add' ? 'active' : ''}
                     onClick={() => setView('add')}
                 >
-                    Add Entry
+                    + Add Entry
                 </button>
             </nav>
 
@@ -71,7 +81,7 @@ function Dashboard() {
                                     {entries.slice(-3).reverse().map((entry) => (
                                         <li key={entry.id}>
                       <span className="activity-icon">
-                        {entry.type === 'podcast' ? '🎧' : '📰'}
+                        {getIcon(entry.type)}
                       </span>
                                             <span className="activity-text">
                         "{entry.title}" from {entry.sourceName}

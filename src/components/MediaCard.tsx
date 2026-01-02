@@ -1,4 +1,4 @@
-import type {MediaSource} from '../types';
+import type { MediaSource } from '../types';
 import '../styles/MediaCard.css';
 
 interface MediaCardProps {
@@ -8,7 +8,17 @@ interface MediaCardProps {
 }
 
 function MediaCard({ source, reason, onMarkComplete }: MediaCardProps) {
-    const icon = source.type === 'podcast' ? '🎧' : '📰';
+    const getIcon = (type: string) => {
+        switch(type) {
+            case 'podcast': return '🎧';
+            case 'newsletter': return '📰';
+            case 'video': return '🎥';
+            case 'article': return '📝';
+            default: return '📚';
+        }
+    };
+
+    const icon = getIcon(source.type);
 
     return (
         <div className="media-card">

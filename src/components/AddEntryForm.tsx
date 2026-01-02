@@ -78,9 +78,20 @@ function AddEntryForm({ onSuccess }: AddEntryFormProps) {
                                         </option>
                                     ))}
                             </optgroup>
-                            {customSources.filter((s) => s.type === 'article').length > 0 && (
+                            {allSources.filter((s) => s.type === 'video').length > 0 && (
+                                <optgroup label="Videos/YouTube">
+                                    {allSources
+                                        .filter((s) => s.type === 'video')
+                                        .map((source) => (
+                                            <option key={source.id} value={source.id}>
+                                                {source.name}
+                                            </option>
+                                        ))}
+                                </optgroup>
+                            )}
+                            {allSources.filter((s) => s.type === 'article').length > 0 && (
                                 <optgroup label="Articles/Blogs">
-                                    {customSources
+                                    {allSources
                                         .filter((s) => s.type === 'article')
                                         .map((source) => (
                                             <option key={source.id} value={source.id}>
@@ -95,19 +106,19 @@ function AddEntryForm({ onSuccess }: AddEntryFormProps) {
                             className="btn-add-source"
                             onClick={() => setShowCustomSourceModal(true)}
                         >
-                            Add New Source
+                            + Add New Source
                         </button>
                     </div>
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="title">Episode/Article Title *</label>
+                    <label htmlFor="title">Title *</label>
                     <input
                         id="title"
                         type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        placeholder="e.g., 'The Future of AI Coding Tools'"
+                        placeholder="e.g., 'JavaScript in 100 Seconds'"
                         required
                     />
                 </div>
