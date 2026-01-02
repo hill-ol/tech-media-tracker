@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useMediaStore } from '../store/mediaStore';
 import { getDailyRecommendations } from '../utils/recommendations';
+import type { MediaType } from '../types';
 import MediaCard from './MediaCard';
 import WeeklyProgress from './WeeklyProgress';
 import AddEntryForm from './AddEntryForm';
 import LogEntry from './LogEntry';
 import InterviewArsenal from './InterviewArsenal';
+import SearchFilter from './SearchFilter';
 import '../styles/Dashboard.css';
 
 type View = 'recommendations' | 'log' | 'add' | 'arsenal';
@@ -15,8 +17,56 @@ function Dashboard() {
     const entries = useMediaStore((state) => state.entries);
     const getWeekProgress = useMediaStore((state) => state.getWeekProgress);
 
+    const [searchQuery, setSearchQuery] = useState('');
+    const [selectedType, setSelectedType] = useState<MediaType | 'all'>('all');
+    const [dateRange, setDateRange] = useState<'all' | 'week' | 'month' | 'year'>('all');
+
     const weekProgress = getWeekProgress();
     const recommendations = getDailyRecommendations(entries, weekProgress);
+
+    const filteredEntries = useMemo(() => {
+        let filtered = [...entries];
+
+        if (searchQuery) {
+            const query = searchQuery.toLowerCase();
+            filtered = filtered.filter(
+                (entry) =>
+                    entry.title.toLowerCase().includes(query) ||
+                    entry.sourceName.toLowerCase().includes(query) ||
+                    entry.keyInsight.toLowerCase().includes(query) ||
+                    entry.interviewAngle?.toLowerCase().includes(query)
+            );
+        }
+
+        // Type filter
+        if (selectedType !== 'all') {
+            filtered = filtered.filter((entry) => entry.type === selectedType);
+        }
+
+        // Date range filter
+        if (dateRange !== 'all') {
+            const now = new Date();
+            const cutoffDate = new Date();
+
+            switch (dateRange) {
+                case 'week':
+                    cutoffDate.setDate(now.getDate() - 7);
+                    break;
+                case 'month':
+                    cutoffDate.setMonth(now.getMonth() - 1);
+                    break;
+                case 'year':
+                    cutoffDate.setFullYear(now.getFullYear() - 1);
+                    break;
+            }
+
+            filtered = filtered.filter(
+                (entry) => new Date(entry.date) >= cutoffDate
+            );
+        }
+
+        return filtered.reverse();
+    }, [entries, searchQuery, selectedType, dateRange]);
 
     const getIcon = (type: string) => {
         switch(type) {
@@ -108,14 +158,43 @@ function Dashboard() {
                     <div className="log-section">
                         <h2>Consumption Log</h2>
                         {entries.length > 0 ? (
-                            <div className="log-entries">
-                                {entries
-                                    .slice()
-                                    .reverse()
-                                    .map((entry) => (
-                                        <LogEntry key={entry.id} entry={entry} />
-                                    ))}
-                            </div>
+                            <>
+                                <SearchFilter
+                                    searchQuery={searchQuery}
+                                    onSearchChange={setSearchQuery}
+                                    selectedType={selectedType}
+                                    onTypeChange={setSelectedType}
+                                    dateRange={dateRange}
+                                    onDateRangeChange={setDateRange}
+                                />
+
+                                {filteredEntries.length > 0 ? (
+                                    <>
+                                        <div className="results-count">
+                                            Showing {filteredEntries.length} of {entries.length} entries
+                                        </div>
+                                        <div className="log-entries">
+                                            {filteredEntries.map((entry) => (
+                                                <LogEntry key={entry.id} entry={entry} />
+                                            ))}
+                                        </div>
+                                    </>
+                                ) : (
+                                    <div className="empty-state">
+                                        <p>No entries match your filters.</p>
+                                        <button
+                                            onClick={() => {
+                                                setSearchQuery('');
+                                                setSelectedType('all');
+                                                setDateRange('all');
+                                            }}
+                                            className="cta-button"
+                                        >
+                                            Clear Filters
+                                        </button>
+                                    </div>
+                                )}
+                            </>
                         ) : (
                             <div className="empty-state">
                                 <p>No entries yet. Start tracking your tech media consumption!</p>
