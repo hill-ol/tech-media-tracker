@@ -5,9 +5,10 @@ import MediaCard from './MediaCard';
 import WeeklyProgress from './WeeklyProgress';
 import AddEntryForm from './AddEntryForm';
 import LogEntry from './LogEntry';
+import InterviewArsenal from './InterviewArsenal';
 import '../styles/Dashboard.css';
 
-type View = 'recommendations' | 'log' | 'add';
+type View = 'recommendations' | 'log' | 'add' | 'arsenal';
 
 function Dashboard() {
     const [view, setView] = useState<View>('recommendations');
@@ -43,6 +44,12 @@ function Dashboard() {
                     onClick={() => setView('log')}
                 >
                     My Log ({entries.length})
+                </button>
+                <button
+                    className={view === 'arsenal' ? 'active' : ''}
+                    onClick={() => setView('arsenal')}
+                >
+                    Interview Arsenal
                 </button>
                 <button
                     className={view === 'add' ? 'active' : ''}
@@ -119,6 +126,8 @@ function Dashboard() {
                         )}
                     </div>
                 )}
+
+                {view === 'arsenal' && <InterviewArsenal />}
 
                 {view === 'add' && (
                     <div className="add-section">
