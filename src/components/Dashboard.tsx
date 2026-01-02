@@ -38,14 +38,14 @@ function Dashboard() {
                     className={view === 'add' ? 'active' : ''}
                     onClick={() => setView('add')}
                 >
-                    + Add Entry
+                    Add Entry
                 </button>
             </nav>
 
             <div className="dashboard-content">
                 {view === 'recommendations' && (
                     <div className="recommendations-section">
-                        <h2>📅 Recommended for Today</h2>
+                        <h2>Recommended for Today</h2>
                         {recommendations.length > 0 ? (
                             <div className="media-grid">
                                 {recommendations.map((rec) => (
@@ -89,7 +89,7 @@ function Dashboard() {
 
                 {view === 'log' && (
                     <div className="log-section">
-                        <h2>📚 Consumption Log</h2>
+                        <h2>Consumption Log</h2>
                         {entries.length > 0 ? (
                             <div className="log-entries">
                                 {entries
@@ -112,7 +112,7 @@ function Dashboard() {
 
                 {view === 'add' && (
                     <div className="add-section">
-                        <h2>➕ Add Entry</h2>
+                        <h2>Add Entry</h2>
                         <AddEntryForm onSuccess={() => setView('recommendations')} />
                     </div>
                 )}
