@@ -36,20 +36,20 @@
 
 .progress-bar {
     height: 12px;
-    background: var(--surface-light);
+    background: var(--background);
     border-radius: 20px;
     overflow: hidden;
 }
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--primary), #8b5cf6);
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
     transition: width 0.5s ease;
     border-radius: 20px;
 }
 
 .progress-fill.complete {
-    background: linear-gradient(90deg, var(--success), #34d399);
+    background: linear-gradient(90deg, var(--primary), #e4b3ca);
 }
 
 .progress-message {
@@ -134,7 +134,7 @@
     padding: 0.75rem;
     border-radius: 8px;
     margin-bottom: 0.5rem;
-    background: var(--background);
+    background: var(--surface-light);
 }
 
 .activity-icon {
@@ -218,7 +218,7 @@
 .log-insight,
 .log-interview {
     padding: 1rem;
-    background: var(--background);
+    background: var(--surface-light);
     border-radius: 8px;
 }
 
@@ -244,7 +244,7 @@
 
 .topic-tag-small {
     padding: 0.25rem 0.75rem;
-    background: var(--surface-light);
+    background: var(--background);
     color: var(--text-secondary);
     border-radius: 12px;
     font-size: 0.85rem;

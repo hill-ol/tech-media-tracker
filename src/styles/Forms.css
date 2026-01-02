@@ -23,7 +23,7 @@
 .form-group select {
     width: 100%;
     padding: 0.75rem;
-    background: var(--background);
+    background: var(--surface-light);
     border: 2px solid var(--border);
     border-radius: 8px;
     color: var(--text);
@@ -55,7 +55,7 @@
 .form-group select {
     cursor: pointer;
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2359382C' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 1rem center;
     padding-right: 2.5rem;
@@ -74,15 +74,113 @@
     padding: 0.75rem 2rem;
 }
 
-/* Form validation states */
 .form-group input:invalid:not(:placeholder-shown),
 .form-group textarea:invalid:not(:placeholder-shown),
 .form-group select:invalid {
-    border-color: #ef4444;
+    border-color: #e57373;
 }
 
 .form-group input:valid,
 .form-group textarea:valid,
 .form-group select:valid {
     border-color: var(--success);
+}
+
+.custom-source-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    position: relative;
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 0;
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: var(--text);
+}
+
+.modal-close {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    padding: 0.25rem;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.modal-close:hover {
+    background: var(--background);
+    color: var(--text);
+}
+
+.custom-source-modal .entry-form {
+    box-shadow: none;
+    margin: 0;
+}
+
+/* Source select with add button */
+.source-select-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.source-select-group select {
+    flex: 1;
+}
+
+.btn-add-source {
+    padding: 0.75rem 1rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.btn-add-source:hover {
+    background: var(--primary-dark);
 }

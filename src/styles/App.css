@@ -1,15 +1,16 @@
 :root {
-  --primary: #3b82f6;
-  --primary-dark: #2563eb;
-  --secondary: #64748b;
-  --success: #10b981;
-  --background: #0f172a;
-  --surface: #1e293b;
-  --surface-light: #334155;
-  --text: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --border: #334155;
-  --shadow: rgba(0, 0, 0, 0.3);
+  --primary: #d89fbb;
+  --primary-dark: #c788a6;
+  --secondary: #59382C;
+  --success: #d89fbb;
+  --accent: #d89fbb;
+  --background: #FFECDA;
+  --surface: #ffffff;
+  --surface-light: #fff9f4;
+  --text: #1E151C;
+  --text-secondary: #59382C;
+  --border: #e8d5c4;
+  --shadow: rgba(30, 21, 28, 0.08);
 }
 
 * {
@@ -46,7 +47,7 @@ body {
 .app-header h1 {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
-  background: linear-gradient(135deg, var(--primary), #8b5cf6);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -74,7 +75,6 @@ body {
   margin-top: 3rem;
 }
 
-/* Buttons */
 .btn-primary,
 .btn-secondary {
   padding: 0.75rem 1.5rem;
@@ -94,16 +94,16 @@ body {
 .btn-primary:hover {
   background: var(--primary-dark);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 4px 12px rgba(216, 159, 187, 0.3);
 }
 
 .btn-secondary {
-  background: var(--surface-light);
-  color: var(--text);
+  background: var(--secondary);
+  color: white;
 }
 
 .btn-secondary:hover {
-  background: var(--secondary);
+  background: #4a2e24;
 }
 
 .cta-button {
@@ -123,7 +123,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* Empty States */
 .empty-state {
   text-align: center;
   padding: 4rem 2rem;
