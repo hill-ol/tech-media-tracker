@@ -1,0 +1,178 @@
+.streaks-widget {
+    background: var(--surface);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.streak-header {
+    margin-bottom: 1.5rem;
+}
+
+.streak-main {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.streak-flame {
+    font-size: 3rem;
+    line-height: 1;
+}
+
+.streak-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.streak-count {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1;
+}
+
+.streak-label {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-top: 0.25rem;
+}
+
+.streak-message {
+    font-size: 1.1rem;
+    color: var(--text);
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    background: var(--background);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.streak-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.streak-stat {
+    padding: 1rem;
+    background: var(--surface-light);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+}
+
+.stat-name {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.weekly-activity-chart {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.weekly-activity-chart h4 {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.activity-bars {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    height: 120px;
+    align-items: flex-end;
+}
+
+.activity-day {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.activity-bar-container {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.activity-bar {
+    width: 100%;
+    max-width: 40px;
+    background: var(--border);
+    border-radius: 6px 6px 0 0;
+    min-height: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.activity-bar.has-activity {
+    background: var(--primary);
+}
+
+.activity-bar.is-today {
+    border: 2px solid var(--secondary);
+    box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--secondary);
+}
+
+.activity-count {
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.activity-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.activity-label.today {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .streak-count {
+        font-size: 2rem;
+    }
+
+    .streak-flame {
+        font-size: 2.5rem;
+    }
+
+    .activity-bars {
+        gap: 0.25rem;
+    }
+
+    .activity-bar {
+        max-width: 32px;
+    }
+
+    .activity-label {
+        font-size: 0.7rem;
+    }
+}

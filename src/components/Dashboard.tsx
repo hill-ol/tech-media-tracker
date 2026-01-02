@@ -1,9 +1,10 @@
 import { useState, useMemo } from 'react';
 import { useMediaStore } from '../store/mediaStore';
 import { getDailyRecommendations } from '../utils/recommendations';
-import type {MediaType, MediaSource} from '../types';
+import type { MediaType, MediaSource } from '../types';
 import MediaCard from './MediaCard';
 import WeeklyProgress from './WeeklyProgress';
+import Streaks from './Streaks';
 import AddEntryForm from './AddEntryForm';
 import LogEntry from './LogEntry';
 import InterviewArsenal from './InterviewArsenal';
@@ -96,7 +97,10 @@ function Dashboard() {
 
     return (
         <div className="dashboard">
-            <WeeklyProgress current={weekProgress} target={3} />
+            <div className="dashboard-top-widgets">
+                <WeeklyProgress current={weekProgress} target={3} />
+                <Streaks />
+            </div>
 
             <nav className="dashboard-nav">
                 <button
