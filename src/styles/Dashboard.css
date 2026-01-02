@@ -270,3 +270,31 @@
     margin-bottom: 1rem;
     padding: 0.5rem 0;
 }
+
+.log-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.edit-btn,
+.delete-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.2s;
+    padding: 0.25rem;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+    opacity: 1;
+    background: var(--background);
+}

@@ -184,3 +184,13 @@
 .btn-add-source:hover {
     background: var(--primary-dark);
 }
+
+.readonly-field {
+    padding: 0.75rem;
+    background: var(--background);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 500;
+}

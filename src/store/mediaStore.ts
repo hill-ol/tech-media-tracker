@@ -8,6 +8,7 @@ interface MediaStore {
     customSources: MediaSource[];
     weeklyGoal: WeeklyGoal;
     addEntry: (entry: Omit<ConsumptionEntry, 'id'>) => void;
+    updateEntry: (id: string, updates: Partial<ConsumptionEntry>) => void;
     deleteEntry: (id: string) => void;
     addCustomSource: (source: MediaSource) => void;
     deleteCustomSource: (id: string) => void;
@@ -39,6 +40,14 @@ export const useMediaStore = create<MediaStore>()(
                         ...state.weeklyGoal,
                         current: state.weeklyGoal.current + 1
                     }
+                }));
+            },
+
+            updateEntry: (id, updates) => {
+                set((state) => ({
+                    entries: state.entries.map((entry) =>
+                        entry.id === id ? { ...entry, ...updates } : entry
+                    )
                 }));
             },
 
