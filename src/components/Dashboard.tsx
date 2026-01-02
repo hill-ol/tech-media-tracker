@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useMediaStore } from '../store/mediaStore';
 import { getDailyRecommendations } from '../utils/recommendations';
-import type { MediaType } from '../types';
+import type {MediaType, MediaSource} from '../types';
 import MediaCard from './MediaCard';
 import WeeklyProgress from './WeeklyProgress';
 import AddEntryForm from './AddEntryForm';
@@ -17,6 +17,10 @@ function Dashboard() {
     const entries = useMediaStore((state) => state.entries);
     const getWeekProgress = useMediaStore((state) => state.getWeekProgress);
 
+    // Pre-selected source for Quick Add
+    const [preSelectedSource, setPreSelectedSource] = useState<MediaSource | null>(null);
+
+    // Search & Filter State
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedType, setSelectedType] = useState<MediaType | 'all'>('all');
     const [dateRange, setDateRange] = useState<'all' | 'week' | 'month' | 'year'>('all');
@@ -24,9 +28,11 @@ function Dashboard() {
     const weekProgress = getWeekProgress();
     const recommendations = getDailyRecommendations(entries, weekProgress);
 
+    // Filtered entries based on search and filters
     const filteredEntries = useMemo(() => {
         let filtered = [...entries];
 
+        // Search filter
         if (searchQuery) {
             const query = searchQuery.toLowerCase();
             filtered = filtered.filter(
@@ -68,6 +74,16 @@ function Dashboard() {
         return filtered.reverse();
     }, [entries, searchQuery, selectedType, dateRange]);
 
+    const handleMarkComplete = (source: MediaSource) => {
+        setPreSelectedSource(source);
+        setView('add');
+    };
+
+    const handleAddSuccess = () => {
+        setPreSelectedSource(null);
+        setView('recommendations');
+    };
+
     const getIcon = (type: string) => {
         switch(type) {
             case 'podcast': return '🎧';
@@ -103,7 +119,10 @@ function Dashboard() {
                 </button>
                 <button
                     className={view === 'add' ? 'active' : ''}
-                    onClick={() => setView('add')}
+                    onClick={() => {
+                        setPreSelectedSource(null);
+                        setView('add');
+                    }}
                 >
                     + Add Entry
                 </button>
@@ -120,13 +139,13 @@ function Dashboard() {
                                         key={rec.source.id}
                                         source={rec.source}
                                         reason={rec.reason}
-                                        onMarkComplete={() => setView('add')}
+                                        onMarkComplete={() => handleMarkComplete(rec.source)}
                                     />
                                 ))}
                             </div>
                         ) : (
                             <div className="empty-state">
-                                <p>🎉 You've consumed all recommended content for today!</p>
+                                <p>You've consumed all recommended content for today!</p>
                                 <p>Check back tomorrow for new recommendations.</p>
                             </div>
                         )}
@@ -211,7 +230,10 @@ function Dashboard() {
                 {view === 'add' && (
                     <div className="add-section">
                         <h2>Add Entry</h2>
-                        <AddEntryForm onSuccess={() => setView('recommendations')} />
+                        <AddEntryForm
+                            onSuccess={handleAddSuccess}
+                            preSelectedSource={preSelectedSource}
+                        />
                     </div>
                 )}
             </div>

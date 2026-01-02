@@ -1,14 +1,16 @@
-import { useState, type FormEvent } from 'react';
+import { useState, type FormEvent, useEffect } from 'react';
 import { useMediaStore } from '../store/mediaStore';
 import { mediaSources } from '../data/mediaSources';
+import type {MediaSource} from '../types';
 import AddCustomSource from './AddCustomSource';
 import '../styles/Forms.css';
 
 interface AddEntryFormProps {
     onSuccess: () => void;
+    preSelectedSource?: MediaSource | null;
 }
 
-function AddEntryForm({ onSuccess }: AddEntryFormProps) {
+function AddEntryForm({ onSuccess, preSelectedSource }: AddEntryFormProps) {
     const addEntry = useMediaStore((state) => state.addEntry);
     const customSources = useMediaStore((state) => state.customSources);
 
@@ -17,6 +19,14 @@ function AddEntryForm({ onSuccess }: AddEntryFormProps) {
     const [keyInsight, setKeyInsight] = useState('');
     const [interviewAngle, setInterviewAngle] = useState('');
     const [showCustomSourceModal, setShowCustomSourceModal] = useState(false);
+
+    // Pre-select source if provided
+    useEffect(() => {
+        if (preSelectedSource) {
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+            setSourceId(preSelectedSource.id);
+        }
+    }, [preSelectedSource]);
 
     // Combine default and custom sources
     const allSources = [...mediaSources, ...customSources];
@@ -49,6 +59,24 @@ function AddEntryForm({ onSuccess }: AddEntryFormProps) {
 
     return (
         <>
+            {preSelectedSource && (
+                <div className="preselect-banner">
+                    <div className="preselect-content">
+                        <span className="preselect-icon">✨</span>
+                        <div>
+                            <strong>Quick Add:</strong> Adding entry for {preSelectedSource.name}
+                        </div>
+                    </div>
+                    <button
+                        className="preselect-clear"
+                        onClick={() => setSourceId('')}
+                        type="button"
+                    >
+                        Change Source
+                    </button>
+                </div>
+            )}
+
             <form className="entry-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="source">Source *</label>
